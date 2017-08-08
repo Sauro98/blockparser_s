@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="fix8_dependencies_gtest_symbols_init">
+  <PropertyGroup Label="Default initializers for properties">
+    <Linkage-fix8_dependencies_gtest_symbols Condition="'$(Linkage-fix8_dependencies_gtest_symbols)' == ''">dynamic</Linkage-fix8_dependencies_gtest_symbols>
+    <CallingConvention-fix8_dependencies_gtest_symbols Condition="'$(CallingConvention-fix8_dependencies_gtest_symbols)' == ''">cdecl</CallingConvention-fix8_dependencies_gtest_symbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)\default-propertiesui.xml" />
+  </ItemGroup>
+  <UsingTask TaskName="fix8_dependencies_gtest_symbols_Contains" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" TaskFactory="CodeTaskFactory">
+    <ParameterGroup>
+      <Text Output="false" ParameterType="System.String" />
+      <Library Output="false" Required="true" ParameterType="System.String" />
+      <Value Output="false" Required="true" ParameterType="System.String" />
+      <Result Output="true" ParameterType="System.String" />
+    </ParameterGroup>
+    <Task>
+      <Code>Result = ((Text ?? "").Split(';').Contains(Library) ) ? Value : String.Empty;</Code>
+    </Task>
+  </UsingTask>
+  <Target Name="fix8_dependencies_gtest_symbols_init">
+    <fix8_dependencies_gtest_symbols_Contains Text="Linkage-dynamic" Library="fix8_dependencies_gtest_symbols" Value="dynamic" Condition="'$(Linkage-fix8_dependencies_gtest_symbols)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkage-fix8_dependencies_gtest_symbols" />
+    </fix8_dependencies_gtest_symbols_Contains>
+    <fix8_dependencies_gtest_symbols_Contains Text="Linkage-static" Library="fix8_dependencies_gtest_symbols" Value="static" Condition="'$(Linkage-fix8_dependencies_gtest_symbols)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkage-fix8_dependencies_gtest_symbols" />
+    </fix8_dependencies_gtest_symbols_Contains>
+    <fix8_dependencies_gtest_symbols_Contains Text="Linkage-ltcg" Library="fix8_dependencies_gtest_symbols" Value="ltcg" Condition="'$(Linkage-fix8_dependencies_gtest_symbols)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkage-fix8_dependencies_gtest_symbols" />
+    </fix8_dependencies_gtest_symbols_Contains>
+    <fix8_dependencies_gtest_symbols_Contains Text="Linkage-sxs" Library="fix8_dependencies_gtest_symbols" Value="sxs" Condition="'$(Linkage-fix8_dependencies_gtest_symbols)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkage-fix8_dependencies_gtest_symbols" />
+    </fix8_dependencies_gtest_symbols_Contains>
+    <fix8_dependencies_gtest_symbols_Contains Text="CallingConvention-cdecl" Library="fix8_dependencies_gtest_symbols" Value="cdecl" Condition="'$(CallingConvention-fix8_dependencies_gtest_symbols)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-fix8_dependencies_gtest_symbols" />
+    </fix8_dependencies_gtest_symbols_Contains>
+    <fix8_dependencies_gtest_symbols_Contains Text="CallingConvention-stdcall" Library="fix8_dependencies_gtest_symbols" Value="stdcall" Condition="'$(CallingConvention-fix8_dependencies_gtest_symbols)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-fix8_dependencies_gtest_symbols" />
+    </fix8_dependencies_gtest_symbols_Contains>
+    <fix8_dependencies_gtest_symbols_Contains Text="CallingConvention-fastcall" Library="fix8_dependencies_gtest_symbols" Value="fastcall" Condition="'$(CallingConvention-fix8_dependencies_gtest_symbols)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-fix8_dependencies_gtest_symbols" />
+    </fix8_dependencies_gtest_symbols_Contains>
+    <fix8_dependencies_gtest_symbols_Contains Text="CallingConvention-thiscall" Library="fix8_dependencies_gtest_symbols" Value="thiscall" Condition="'$(CallingConvention-fix8_dependencies_gtest_symbols)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-fix8_dependencies_gtest_symbols" />
+    </fix8_dependencies_gtest_symbols_Contains>
+    <fix8_dependencies_gtest_symbols_Contains Text="CallingConvention-clrcall" Library="fix8_dependencies_gtest_symbols" Value="clrcall" Condition="'$(CallingConvention-fix8_dependencies_gtest_symbols)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-fix8_dependencies_gtest_symbols" />
+    </fix8_dependencies_gtest_symbols_Contains>
+  </Target>
+</Project>

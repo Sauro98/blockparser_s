@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="fix8_dependencies_gtest_init_targets_0;fix8_dependencies_gtest_init_targets_1;fix8_dependencies_gtest_init_targets_2;fix8_dependencies_gtest_ItemGroupInit_targets_3">
+  <PropertyGroup Label="Default initializers for properties">
+    <Linkages-fix8_dependencies_gtest Condition="'$(Linkages-fix8_dependencies_gtest)' == ''">dynamic</Linkages-fix8_dependencies_gtest>
+    <CallingConventions-fix8_dependencies_gtest Condition="'$(CallingConventions-fix8_dependencies_gtest)' == ''">cdecl</CallingConventions-fix8_dependencies_gtest>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PreprocessorDefinitions>FIX8_NUGET_HAS_GTEST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)../../build/native/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)../../build/native/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Label="Win32 and v140 and Release and Desktop" Condition="'$(Platform.ToLower())' == 'win32' And ( '$(PlatformToolset.ToLower())' == 'v140' Or '$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8' Or '$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8' Or '$(PlatformToolset.ToLower())' == 'windowsusermodedriver8' ) And ( $(Configuration.ToLower().IndexOf('debug')) == -1 ) And ( !('$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0') And !('$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0') And !('$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0') And !('$(TargetPlatformIdentifier.ToLower())' == 'windows phone' And '$(TargetPlatformVersion)' &gt;= '8.0') And !('$(AppContainerApplication.ToLower())' == 'true') )">
+    <Link>
+      <AdditionalDependencies>$(MSBuildThisFileDirectory)../../build/native/lib/Win32/v140/Release/Desktop/gtest_main-md.lib;$(MSBuildThisFileDirectory)../../build/native/lib/Win32/v140/Release/Desktop/gtest.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Label="x64 and v120 and Release and Desktop" Condition="'$(Platform.ToLower())' == 'x64' And ( '$(PlatformToolset.ToLower())' == 'v120' Or '$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0' Or '$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0' Or '$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0' ) And ( $(Configuration.ToLower().IndexOf('debug')) == -1 ) And ( !('$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0') And !('$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0') And !('$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0') And !('$(TargetPlatformIdentifier.ToLower())' == 'windows phone' And '$(TargetPlatformVersion)' &gt;= '8.0') And !('$(AppContainerApplication.ToLower())' == 'true') )">
+    <Link>
+      <AdditionalDependencies>$(MSBuildThisFileDirectory)../../build/native/lib/x64/v120/Release/Desktop/gtest_main-md.lib;$(MSBuildThisFileDirectory)../../build/native/lib/x64/v120/Release/Desktop/gtest.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Label="x64 and v140 and Release and Desktop" Condition="'$(Platform.ToLower())' == 'x64' And ( '$(PlatformToolset.ToLower())' == 'v140' Or '$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8' Or '$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8' Or '$(PlatformToolset.ToLower())' == 'windowsusermodedriver8' ) And ( $(Configuration.ToLower().IndexOf('debug')) == -1 ) And ( !('$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0') And !('$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0') And !('$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0') And !('$(TargetPlatformIdentifier.ToLower())' == 'windows phone' And '$(TargetPlatformVersion)' &gt;= '8.0') And !('$(AppContainerApplication.ToLower())' == 'true') )">
+    <Link>
+      <AdditionalDependencies>$(MSBuildThisFileDirectory)../../build/native/lib/x64/v140/Release/Desktop/gtest_main-md.lib;$(MSBuildThisFileDirectory)../../build/native/lib/x64/v140/Release/Desktop/gtest.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Label="x64 and v140 and Debug and Desktop" Condition="'$(Platform.ToLower())' == 'x64' And ( '$(PlatformToolset.ToLower())' == 'v140' Or '$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8' Or '$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8' Or '$(PlatformToolset.ToLower())' == 'windowsusermodedriver8' ) And ( $(Configuration.ToLower().IndexOf('debug')) &gt; -1 ) And ( !('$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0') And !('$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0') And !('$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0') And !('$(TargetPlatformIdentifier.ToLower())' == 'windows phone' And '$(TargetPlatformVersion)' &gt;= '8.0') And !('$(AppContainerApplication.ToLower())' == 'true') )">
+    <Link>
+      <AdditionalDependencies>$(MSBuildThisFileDirectory)../../build/native/lib/x64/v140/Debug/Desktop/gtest_main-mdd.lib;$(MSBuildThisFileDirectory)../../build/native/lib/x64/v140/Debug/Desktop/gtestd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Label="Win32 and v120 and Debug and Desktop" Condition="'$(Platform.ToLower())' == 'win32' And ( '$(PlatformToolset.ToLower())' == 'v120' Or '$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0' Or '$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0' Or '$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0' ) And ( $(Configuration.ToLower().IndexOf('debug')) &gt; -1 ) And ( !('$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0') And !('$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0') And !('$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0') And !('$(TargetPlatformIdentifier.ToLower())' == 'windows phone' And '$(TargetPlatformVersion)' &gt;= '8.0') And !('$(AppContainerApplication.ToLower())' == 'true') )">
+    <Link>
+      <AdditionalDependencies>$(MSBuildThisFileDirectory)../../build/native/lib/Win32/v120/Debug/Desktop/gtest_main-mdd.lib;$(MSBuildThisFileDirectory)../../build/native/lib/Win32/v120/Debug/Desktop/gtestd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Label="Win32 and v140 and Debug and Desktop" Condition="'$(Platform.ToLower())' == 'win32' And ( '$(PlatformToolset.ToLower())' == 'v140' Or '$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8' Or '$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8' Or '$(PlatformToolset.ToLower())' == 'windowsusermodedriver8' ) And ( $(Configuration.ToLower().IndexOf('debug')) &gt; -1 ) And ( !('$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0') And !('$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0') And !('$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0') And !('$(TargetPlatformIdentifier.ToLower())' == 'windows phone' And '$(TargetPlatformVersion)' &gt;= '8.0') And !('$(AppContainerApplication.ToLower())' == 'true') )">
+    <Link>
+      <AdditionalDependencies>$(MSBuildThisFileDirectory)../../build/native/lib/Win32/v140/Debug/Desktop/gtest_main-mdd.lib;$(MSBuildThisFileDirectory)../../build/native/lib/Win32/v140/Debug/Desktop/gtestd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Label="Win32 and v120 and Release and Desktop" Condition="'$(Platform.ToLower())' == 'win32' And ( '$(PlatformToolset.ToLower())' == 'v120' Or '$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0' Or '$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0' Or '$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0' ) And ( $(Configuration.ToLower().IndexOf('debug')) == -1 ) And ( !('$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0') And !('$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0') And !('$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0') And !('$(TargetPlatformIdentifier.ToLower())' == 'windows phone' And '$(TargetPlatformVersion)' &gt;= '8.0') And !('$(AppContainerApplication.ToLower())' == 'true') )">
+    <Link>
+      <AdditionalDependencies>$(MSBuildThisFileDirectory)../../build/native/lib/Win32/v120/Release/Desktop/gtest_main-md.lib;$(MSBuildThisFileDirectory)../../build/native/lib/Win32/v120/Release/Desktop/gtest.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Label="x64 and v120 and Debug and Desktop" Condition="'$(Platform.ToLower())' == 'x64' And ( '$(PlatformToolset.ToLower())' == 'v120' Or '$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0' Or '$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0' Or '$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0' ) And ( $(Configuration.ToLower().IndexOf('debug')) &gt; -1 ) And ( !('$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0') And !('$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0') And !('$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0') And !('$(TargetPlatformIdentifier.ToLower())' == 'windows phone' And '$(TargetPlatformVersion)' &gt;= '8.0') And !('$(AppContainerApplication.ToLower())' == 'true') )">
+    <Link>
+      <AdditionalDependencies>$(MSBuildThisFileDirectory)../../build/native/lib/x64/v120/Debug/Desktop/gtest_main-mdd.lib;$(MSBuildThisFileDirectory)../../build/native/lib/x64/v120/Debug/Desktop/gtestd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Target Name="fix8_dependencies_gtest_AfterBuild" AfterTargets="AfterBuild">
+    <Copy SkipUnchangedFiles="true" SourceFiles="@(CopyToOutput)" UseHardlinksIfPossible="true" DestinationFolder="$(TargetDir)">
+      <Output TaskParameter="DestinationFiles" PropertyName="DestinationFiles" />
+      <Output TaskParameter="DestinationFiles" ItemName="DestinationFiles" />
+      <Output TaskParameter="CopiedFiles" PropertyName="CopiedFiles" />
+      <Output TaskParameter="CopiedFiles" ItemName="CopiedFiles" />
+    </Copy>
+  </Target>
+  <Target Name="fix8_dependencies_gtest_BeforeLink" AfterTargets="BeforeLink">
+    <CheckRuntimeLibrary RuntimeLibrary="%(ClCompile.RuntimeLibrary)" ExpectedRuntimeLibrary="none" LibraryName="fix8_dependencies_gtest" />
+  </Target>
+  <Target Name="fix8_dependencies_gtest_BeforeLink_Debug_and_static" Label="Debug and static" Condition="( $(Configuration.ToLower().IndexOf('debug')) &gt; -1 ) And '$(Linkages-fix8_dependencies_gtest.ToLower())' == 'static'" AfterTargets="fix8_dependencies_gtest_BeforeLink">
+    <CheckRuntimeLibrary RuntimeLibrary="%(ClCompile.RuntimeLibrary)" ExpectedRuntimeLibrary="MultiThreadedDebug" LibraryName="fix8_dependencies_gtest" />
+  </Target>
+  <Target Name="fix8_dependencies_gtest_BeforeLink_Release_and_static" Label="Release and static" Condition="( $(Configuration.ToLower().IndexOf('debug')) == -1 ) And '$(Linkages-fix8_dependencies_gtest.ToLower())' == 'static'" AfterTargets="fix8_dependencies_gtest_BeforeLink">
+    <CheckRuntimeLibrary RuntimeLibrary="%(ClCompile.RuntimeLibrary)" ExpectedRuntimeLibrary="MultiThreaded" LibraryName="fix8_dependencies_gtest" />
+  </Target>
+  <Target Name="fix8_dependencies_gtest_init_targets_1">
+    <StringContains Text="Linkages-dynamic" Library="fix8_dependencies_gtest" Value="dynamic" Condition="'$(Linkages-fix8_dependencies_gtest)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkages-fix8_dependencies_gtest" />
+    </StringContains>
+    <StringContains Text="Linkages-static" Library="fix8_dependencies_gtest" Value="static" Condition="'$(Linkages-fix8_dependencies_gtest)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkages-fix8_dependencies_gtest" />
+    </StringContains>
+    <StringContains Text="Linkages-ltcg" Library="fix8_dependencies_gtest" Value="ltcg" Condition="'$(Linkages-fix8_dependencies_gtest)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkages-fix8_dependencies_gtest" />
+    </StringContains>
+    <StringContains Text="Linkages-sxs" Library="fix8_dependencies_gtest" Value="sxs" Condition="'$(Linkages-fix8_dependencies_gtest)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkages-fix8_dependencies_gtest" />
+    </StringContains>
+    <StringContains Text="CallingConventions-cdecl" Library="fix8_dependencies_gtest" Value="cdecl" Condition="'$(CallingConventions-fix8_dependencies_gtest)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConventions-fix8_dependencies_gtest" />
+    </StringContains>
+    <StringContains Text="CallingConventions-stdcall" Library="fix8_dependencies_gtest" Value="stdcall" Condition="'$(CallingConventions-fix8_dependencies_gtest)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConventions-fix8_dependencies_gtest" />
+    </StringContains>
+    <StringContains Text="CallingConventions-fastcall" Library="fix8_dependencies_gtest" Value="fastcall" Condition="'$(CallingConventions-fix8_dependencies_gtest)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConventions-fix8_dependencies_gtest" />
+    </StringContains>
+    <StringContains Text="CallingConventions-thiscall" Library="fix8_dependencies_gtest" Value="thiscall" Condition="'$(CallingConventions-fix8_dependencies_gtest)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConventions-fix8_dependencies_gtest" />
+    </StringContains>
+    <StringContains Text="CallingConventions-clrcall" Library="fix8_dependencies_gtest" Value="clrcall" Condition="'$(CallingConventions-fix8_dependencies_gtest)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConventions-fix8_dependencies_gtest" />
+    </StringContains>
+    <StringContains Text="CallingConventions-vectorcall" Library="fix8_dependencies_gtest" Value="vectorcall" Condition="'$(CallingConventions-fix8_dependencies_gtest)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConventions-fix8_dependencies_gtest" />
+    </StringContains>
+  </Target>
+  <Target Name="fix8_dependencies_gtest_init_targets_2" />
+  <Target Name="fix8_dependencies_gtest_ItemGroupInit_targets_3">
+    <ItemGroup Label="Win32 and v140 and Release and Desktop" Condition="'$(Platform.ToLower())' == 'win32' And ( '$(PlatformToolset.ToLower())' == 'v140' Or '$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8' Or '$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8' Or '$(PlatformToolset.ToLower())' == 'windowsusermodedriver8' ) And ( $(Configuration.ToLower().IndexOf('debug')) == -1 ) And ( !('$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0') And !('$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0') And !('$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0') And !('$(TargetPlatformIdentifier.ToLower())' == 'windows phone' And '$(TargetPlatformVersion)' &gt;= '8.0') And !('$(AppContainerApplication.ToLower())' == 'true') )">
+      <CopyToOutput Include="$(MSBuildThisFileDirectory)../../build/native/bin/Win32/v140/Release/Desktop/gtest-md.pdb" />
+    </ItemGroup>
+    <ItemGroup Label="x64 and v120 and Release and Desktop" Condition="'$(Platform.ToLower())' == 'x64' And ( '$(PlatformToolset.ToLower())' == 'v120' Or '$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0' Or '$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0' Or '$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0' ) And ( $(Configuration.ToLower().IndexOf('debug')) == -1 ) And ( !('$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0') And !('$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0') And !('$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0') And !('$(TargetPlatformIdentifier.ToLower())' == 'windows phone' And '$(TargetPlatformVersion)' &gt;= '8.0') And !('$(AppContainerApplication.ToLower())' == 'true') )">
+      <CopyToOutput Include="$(MSBuildThisFileDirectory)../../build/native/bin/x64/v120/Release/Desktop/vc120.pdb" />
+    </ItemGroup>
+    <ItemGroup Label="x64 and v140 and Release and Desktop" Condition="'$(Platform.ToLower())' == 'x64' And ( '$(PlatformToolset.ToLower())' == 'v140' Or '$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8' Or '$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8' Or '$(PlatformToolset.ToLower())' == 'windowsusermodedriver8' ) And ( $(Configuration.ToLower().IndexOf('debug')) == -1 ) And ( !('$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0') And !('$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0') And !('$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0') And !('$(TargetPlatformIdentifier.ToLower())' == 'windows phone' And '$(TargetPlatformVersion)' &gt;= '8.0') And !('$(AppContainerApplication.ToLower())' == 'true') )">
+      <CopyToOutput Include="$(MSBuildThisFileDirectory)../../build/native/bin/x64/v140/Release/Desktop/gtest-md.pdb" />
+    </ItemGroup>
+    <ItemGroup Label="x64 and v140 and Debug and Desktop" Condition="'$(Platform.ToLower())' == 'x64' And ( '$(PlatformToolset.ToLower())' == 'v140' Or '$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8' Or '$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8' Or '$(PlatformToolset.ToLower())' == 'windowsusermodedriver8' ) And ( $(Configuration.ToLower().IndexOf('debug')) &gt; -1 ) And ( !('$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0') And !('$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0') And !('$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0') And !('$(TargetPlatformIdentifier.ToLower())' == 'windows phone' And '$(TargetPlatformVersion)' &gt;= '8.0') And !('$(AppContainerApplication.ToLower())' == 'true') )">
+      <CopyToOutput Include="$(MSBuildThisFileDirectory)../../build/native/bin/x64/v140/Debug/Desktop/gtest-md.pdb" />
+    </ItemGroup>
+    <ItemGroup Label="Win32 and v120 and Debug and Desktop" Condition="'$(Platform.ToLower())' == 'win32' And ( '$(PlatformToolset.ToLower())' == 'v120' Or '$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0' Or '$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0' Or '$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0' ) And ( $(Configuration.ToLower().IndexOf('debug')) &gt; -1 ) And ( !('$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0') And !('$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0') And !('$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0') And !('$(TargetPlatformIdentifier.ToLower())' == 'windows phone' And '$(TargetPlatformVersion)' &gt;= '8.0') And !('$(AppContainerApplication.ToLower())' == 'true') )">
+      <CopyToOutput Include="$(MSBuildThisFileDirectory)../../build/native/bin/Win32/v120/Debug/Desktop/vc120.pdb" />
+    </ItemGroup>
+    <ItemGroup Label="Win32 and v140 and Debug and Desktop" Condition="'$(Platform.ToLower())' == 'win32' And ( '$(PlatformToolset.ToLower())' == 'v140' Or '$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8' Or '$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8' Or '$(PlatformToolset.ToLower())' == 'windowsusermodedriver8' ) And ( $(Configuration.ToLower().IndexOf('debug')) &gt; -1 ) And ( !('$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0') And !('$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0') And !('$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0') And !('$(TargetPlatformIdentifier.ToLower())' == 'windows phone' And '$(TargetPlatformVersion)' &gt;= '8.0') And !('$(AppContainerApplication.ToLower())' == 'true') )">
+      <CopyToOutput Include="$(MSBuildThisFileDirectory)../../build/native/bin/Win32/v140/Debug/Desktop/gtest-md.pdb" />
+    </ItemGroup>
+    <ItemGroup Label="Win32 and v120 and Release and Desktop" Condition="'$(Platform.ToLower())' == 'win32' And ( '$(PlatformToolset.ToLower())' == 'v120' Or '$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0' Or '$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0' Or '$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0' ) And ( $(Configuration.ToLower().IndexOf('debug')) == -1 ) And ( !('$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0') And !('$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0') And !('$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0') And !('$(TargetPlatformIdentifier.ToLower())' == 'windows phone' And '$(TargetPlatformVersion)' &gt;= '8.0') And !('$(AppContainerApplication.ToLower())' == 'true') )">
+      <CopyToOutput Include="$(MSBuildThisFileDirectory)../../build/native/bin/Win32/v120/Release/Desktop/vc120.pdb" />
+    </ItemGroup>
+    <ItemGroup Label="x64 and v120 and Debug and Desktop" Condition="'$(Platform.ToLower())' == 'x64' And ( '$(PlatformToolset.ToLower())' == 'v120' Or '$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0' Or '$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0' Or '$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0' ) And ( $(Configuration.ToLower().IndexOf('debug')) &gt; -1 ) And ( !('$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0') And !('$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0') And !('$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0') And !('$(TargetPlatformIdentifier.ToLower())' == 'windows phone' And '$(TargetPlatformVersion)' &gt;= '8.0') And !('$(AppContainerApplication.ToLower())' == 'true') )">
+      <CopyToOutput Include="$(MSBuildThisFileDirectory)../../build/native/bin/x64/v120/Debug/Desktop/vc120.pdb" />
+    </ItemGroup>
+  </Target>
+  <ItemGroup>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)\default-propertiesui.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)\fix8.dependencies.gtest-propertiesui-96e54706-2e67-4e81-8679-c2bd5ab78e4d.xml" />
+  </ItemGroup>
+  <UsingTask TaskName="NuGetPackageOverlay" AssemblyFile="$(NuGet-NativeExtensionPath)\coapp.NuGetNativeMSBuildTasks.dll" Condition="'$(DesignTimeBuild)' != 'true' AND ('$(NugetMsBuildExtensionLoaded)' == '' OR '$(NugetMsBuildExtensionLoaded)' == 'false')" />
+  <UsingTask TaskName="CheckRuntimeLibrary" AssemblyFile="$(NuGet-NativeExtensionPath)\coapp.NuGetNativeMSBuildTasks.dll" Condition="'$(DesignTimeBuild)' != 'true' AND ('$(NugetMsBuildExtensionLoaded)' == '' OR '$(NugetMsBuildExtensionLoaded)' == 'false')" />
+  <UsingTask TaskName="StringContains" AssemblyFile="$(NuGet-NativeExtensionPath)\coapp.NuGetNativeMSBuildTasks.dll" Condition="'$(DesignTimeBuild)' != 'true' AND ('$(NugetMsBuildExtensionLoaded)' == '' OR '$(NugetMsBuildExtensionLoaded)' == 'false')" />
+  <Target Name="fix8_dependencies_gtest_init_targets_0">
+    <Copy SkipUnchangedFiles="true" SourceFiles="$(NuGet-NativeExtensionPath)\coapp.NuGetNativeMSBuildTasks.dll.orig" DestinationFiles="$(NuGet-NativeExtensionPath)\coapp.NuGetNativeMSBuildTasks.dll" />
+    <PropertyGroup>
+      <NugetMsBuildExtensionLoaded Condition="'$(NugetMsBuildExtensionLoaded)' == '' OR '$(NuGet-OverlayLoaded)' == 'false'">true</NugetMsBuildExtensionLoaded>
+    </PropertyGroup>
+  </Target>
+</Project>

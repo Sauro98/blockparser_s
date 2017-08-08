@@ -2,4 +2,4 @@
 
 A test parser for the bitcoin blockchain 
 
-- [x] Succesfully eads the genesis block
+- [x] Succesfully reads the genesis block

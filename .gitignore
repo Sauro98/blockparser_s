@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+#block-chain archive files
+*.dat

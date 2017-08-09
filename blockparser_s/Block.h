@@ -3,113 +3,139 @@
 #include "globals.h"
 #include <stdint.h>
 #include <ctime>
+#include<memory>
+#include <fstream>
 
 namespace BBlockChain {
 
-	static void printHash(uint8_t* hash);
-	static void printTimestamp(uint32_t timestamp);
+	uint8_t publicAddressPattern[3] = { 0x76,0xA9,20 };
+
+	static void printHash(std::shared_ptr<uint8_t> hash,std::ofstream* myFile);
+	static void printTimestamp(uint32_t timestamp,std::ofstream* myFile);
 
 	typedef struct Output {
 		uint64_t value;
 		uint64_t scriptLength;
-		uint8_t* script;
+		std::shared_ptr<uint8_t> script;
 
-		void printOutput() {
-			println("|\t|\t| OutputValue: " << std::dec << value);
+		void printOutput(std::ofstream* myFile) {
+			(*myFile) << "|\t|\t| OutputValue: " << std::dec << value << std::endl;
+			if (scriptLength == 67 || scriptLength == 66) {
+				(*myFile) << "|\t|\t| Dest address: ";
+				for (int a = 65; a > 45; a--)
+					(*myFile) << std::hex << (uint16_t)script.get()[a];
+				(*myFile) << std::endl;
+			} else if (scriptLength  >= 25) {
+				(*myFile) << "|\t|\t| Dest address: ";
+				bool isOk = true;
+				for (int a = 0; a < 3; a++) {
+					if (script.get()[a] != publicAddressPattern[a])
+						isOk = false;
+				}
+				if (isOk) {
+					for (int a = 3; a < 24; a++)
+						(*myFile) << std::hex << (uint16_t)script.get()[a];
+					(*myFile) << std::endl;
+				}
+			}
 		}
+
 	}Output;
 
 	typedef struct Input {
-		uint8_t* transactionHash;
+		std::shared_ptr<uint8_t> transactionHash;
 		uint32_t transactionIndex;
 		uint64_t scriptLength;
-		uint8_t* script;
+		std::shared_ptr<uint8_t> script;
 		uint32_t sequenceNumber;
 
-		void printInput() {
-			print("|\t|\t| TransactionHash: ");
-			printHash(transactionHash);
-			println("|\t|\t| TransactionIndex: " << std::hex << transactionIndex);
-			println("|\t|\t| SequenceNumber: " << std::dec << sequenceNumber);
+		void printInput(std::ofstream* myFile) {
+			(*myFile) << "|\t|\t| TransactionHash: ";
+			printHash(transactionHash,myFile);
+			(*myFile) << "|\t|\t| TransactionIndex: " << std::hex << transactionIndex << std::endl;
+			(*myFile) << "|\t|\t| SequenceNumber: " << std::hex << sequenceNumber << std::endl;
 		}
+
 	}Input;
 
 	typedef struct Transaction {
 		uint32_t transactionVersionNumber;
 		uint64_t inputCount;
-		Input* inputs;
+		std::shared_ptr<Input> inputs;
 		uint64_t outputCount;
-		Output* outputs;
+		std::shared_ptr<Output> outputs;
 		uint32_t transactionLockTime;
 
-		void printTransaction() {
-			println("|\t| TransactionVersionNumber: " << std::dec << transactionVersionNumber);
-			println("|\t| InputCount: " << inputCount);
-			println("|\t|\t--------");
+		void printTransaction(std::ofstream* myFile) {
+			(*myFile) << "|\t| TransactionVersionNumber: " << std::dec << transactionVersionNumber << std::endl;
+			(*myFile) << "|\t| InputCount: " << inputCount << std::endl;
+			(*myFile) << "|\t|\t--------" << std::endl;
 			for (uint64_t a = 0; a < inputCount; a++) {
-				inputs[a].printInput();
-				println("|\t|\t----------");
+				inputs.get()[a].printInput(myFile);
+				(*myFile) << "|\t|\t----------" << std::endl;
 			}
-			println("|\t| OutputCount: " << outputCount);
-			println("|\t|\t--------");
+			(*myFile) << "|\t| OutputCount: " << outputCount << std::endl;
+			(*myFile) << "|\t|\t--------" << std::endl;
 			for (uint64_t a = 0; a < outputCount; a++) {
-				outputs[a].printOutput();
-				println("|\t|\t----------");
+				outputs.get()[a].printOutput(myFile);
+				(*myFile) << "|\t|\t----------" << std::endl;
 			}
-			println("|\t| TransactionLockTime: " << transactionLockTime);
+			(*myFile) << "|\t| TransactionLockTime: " << transactionLockTime << std::endl;
 		}
+
+
 	}Transaction;
 
 	typedef struct Block {
 		uint32_t magicID;
 		uint32_t headerLength;
 		uint32_t versionNumber;
-		uint8_t* previousBlockHash;
-		uint8_t* merkleRoot;
+		std::shared_ptr<uint8_t> previousBlockHash;
+		std::shared_ptr<uint8_t> merkleRoot;
 		uint32_t timeStamp;
 		uint32_t targetDifficulty;
 		uint32_t nonce;
 		uint64_t transactionCount;
-		Transaction* transactions;
+		std::shared_ptr<Transaction> transactions;
 
-		void printBlock() {
-			println("----------");
-			println("| MagicID: " << std::hex << magicID);
-			println("| HeaderLength: " << std::dec << headerLength);
-			println("| versionNumber: " << std::dec << versionNumber);
-			print("| previousBlockHash: ");
-			printHash(previousBlockHash);
-			print("| markleRoot: ");
-			printHash(merkleRoot);
-			print("| Timestamp: ");
-			printTimestamp(timeStamp);
-			println("| targetDifficulty: " << std::hex << targetDifficulty);
-			println("| nonce: " << std::dec << nonce);
-			println("| transactionCount: " << std::dec << transactionCount);
-			println("|\t--------");
+		void printBlockToFile(std::ofstream* myFile) {
+			(*myFile) << "----------" <<std::endl;
+			(*myFile) << "| MagicID: " << std::hex << magicID << std::endl;
+			(*myFile) << "| HeaderLength: " << std::dec << headerLength << std::endl;
+			(*myFile) << "| versionNumber: " << std::dec << versionNumber << std::endl;
+			(*myFile) << "| previousBlockHash: ";
+			printHash(previousBlockHash,myFile);
+			(*myFile) << "| markleRoot: ";
+			printHash(merkleRoot, myFile);
+			(*myFile) << "| Timestamp: ";
+			printTimestamp(timeStamp, myFile);
+			(*myFile) << "| targetDifficulty: " << std::hex << targetDifficulty << std::endl;
+			(*myFile) << "| nonce: " << std::dec << nonce << std::endl;
+			(*myFile) << "| transactionCount: " << std::dec << transactionCount << std::endl;
+			(*myFile) << "|\t--------" << std::endl;
 			for (uint64_t a = 0; a < transactionCount; a++) {
-				transactions[a].printTransaction();
-				println("|\t--------");
+				transactions.get()[a].printTransaction(myFile);
+				(*myFile) << "|\t--------" << std::endl;
 			}
-			println("----------");
+			(*myFile) << "----------" << std::endl;
 		}
+
 	}Block;
 
-	static void printHash(uint8_t* hash) {
-		for (int a = SHA256_LENGTH - 1; a >= 0; a--) {
-			print(std::hex << (uint16_t)hash[a]);
+	static void printHash(std::shared_ptr<uint8_t> hash,std::ofstream* myFile) {
+		for (int a = 20; a >= 0; a--) {
+			(*myFile) << std::hex << (uint16_t)(hash.get()[a]);
 		}
-		delete[] hash;
-		newline;
+		(*myFile) << std::endl;
 	}
 
-	static void printTimestamp(uint32_t timestamp) {
+	static void printTimestamp(uint32_t timestamp,std::ofstream* myFile) {
 		time_t t = (time_t)timestamp;
 		struct tm time;
 		localtime_s(&time, &t);
-		print(std::dec << time.tm_mday << "/");
-		print(std::dec << (1 + time.tm_mon) << "/");
-		print(std::dec << (1900 + time.tm_year) << " ");
-		println(std::dec << time.tm_hour << ":" << std::dec << time.tm_min << ":" << std::dec << time.tm_sec);
+		(*myFile) << std::dec << time.tm_mday << "/";
+		(*myFile) << std::dec << (1 + time.tm_mon) << "/";
+		(*myFile) << std::dec << (1900 + time.tm_year) << " ";
+		(*myFile) << std::dec << time.tm_hour << ":" << std::dec << time.tm_min << ":" << std::dec << time.tm_sec << std::endl;
 	}
 }

@@ -5,6 +5,7 @@
 #define print(x) std::cout<<x
 #define println(x) std::cout<<x<<std::endl
 #define newline std::cout<<std::endl
+#define rollbackLine print("\r");
 
 #define SHA256_LENGTH 32
 

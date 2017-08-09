@@ -1,28 +1,39 @@
 #pragma once
 
 #include<stdint.h>
+#include <math.h>
 #include "BitwiseReader.h"
 #include "globals.h"
 #include "Block.h"
+
+typedef std::shared_ptr<BBlockChain::Transaction> TransactionArray;
+typedef std::shared_ptr<BBlockChain::Input> InputArray;
+typedef std::shared_ptr<BBlockChain::Output> OutputArray;
+typedef std::shared_ptr<uint8_t> CharArray;
 
 class BlockReader {
 
 private:
 
 	uint8_t* blockFile;
+	uint64_t blocksRead;
 	uint64_t currentIndex;
-
+	uint64_t fileSize;
+	long double lastperc = -1.0;
 public: 
 
-	BlockReader(uint8_t* _blockFile) {
+	BlockReader(uint8_t* _blockFile,uint64_t _fileSize) {
 		blockFile = _blockFile;
+		fileSize = _fileSize;
 		currentIndex = 0;
+		blocksRead = 0;
 	}
 
 	BBlockChain::Block readBlock() {
 		BBlockChain::Block currentBlock;
 		currentBlock.magicID = read32BitValue();
 		currentBlock.headerLength = read32BitValue();
+		uint64_t startIndex = currentIndex;
 		currentBlock.versionNumber = read32BitValue();
 		currentBlock.previousBlockHash = read256bitHash();
 		currentBlock.merkleRoot = read256bitHash();
@@ -31,16 +42,37 @@ public:
 		currentBlock.nonce = read32BitValue();
 		currentBlock.transactionCount = readVariableLengthInteger();
 		currentBlock.transactions = readTransactions(currentBlock.transactionCount);
-		currentBlock.printBlock();
+		blocksRead++;
+		if (currentIndex - startIndex < currentBlock.headerLength) {
+			println("Gap found: "<<currentIndex);
+			uint64_t diff = currentBlock.headerLength - (currentIndex - startIndex);
+			currentIndex += diff;
+		}
 		return currentBlock;
 	}
 
-private:
+	bool hasNext() {
+		long double perc = currentIndex / ((long double)fileSize);
+		perc = floorf((float)perc * 100) / 100;
+		lastperc = floorf((float)lastperc * 100) / 100;
+		if (perc != lastperc) {
+			lastperc = perc;
+			rollbackLine;
+			print(perc * 100 << "%");
+		}
+		return (currentIndex < fileSize) && (fileSize - currentIndex) > 80;
+	}
 
-	BBlockChain::Transaction* readTransactions(uint64_t transactionCount) {
-		BBlockChain::Transaction* transactions = new BBlockChain::Transaction[transactionCount];
+	uint64_t totalBlocksRead() {
+		return blocksRead;
+	}
+
+protected:
+
+	TransactionArray readTransactions(uint64_t transactionCount) {
+		TransactionArray transactions (new BBlockChain::Transaction[transactionCount],std::default_delete<BBlockChain::Transaction[]>());
 		for (int transactionIndex = 0; transactionIndex < transactionCount; transactionIndex++) {
-			transactions[transactionIndex] = readTransaction();
+			transactions.get()[transactionIndex] = readTransaction();
 		}
 		return transactions;
 	}
@@ -56,10 +88,10 @@ private:
 		return transaction;
 	}
 
-	BBlockChain::Input* readInputs(uint64_t inputCount) {
-		BBlockChain::Input* inputs = new BBlockChain::Input[inputCount];
+	InputArray readInputs(uint64_t inputCount) {
+		InputArray inputs (new BBlockChain::Input[inputCount], std::default_delete<BBlockChain::Input[]>());
 		for (uint64_t inputIndex = 0; inputIndex < inputCount; inputIndex++) {
-			inputs[inputIndex] = readInput();
+			inputs.get()[inputIndex] = readInput();
 		}
 		return inputs;
 	}
@@ -74,10 +106,10 @@ private:
 		return input;
 	}
 
-	BBlockChain::Output* readOutputs(uint64_t outputCount) {
-		BBlockChain::Output* outputs = new BBlockChain::Output[outputCount];
+	OutputArray readOutputs(uint64_t outputCount) {
+		OutputArray outputs(new BBlockChain::Output[outputCount], std::default_delete<BBlockChain::Output[]>());
 		for (uint64_t outputIndex = 0; outputIndex < outputCount; outputIndex++) {
-			outputs[outputIndex] = readOutput();
+			outputs.get()[outputIndex] = readOutput();
 		}
 		return outputs;
 	}
@@ -102,19 +134,19 @@ private:
 		return returnValue;
 	}
 
-	uint8_t* read256bitHash() {
-		uint8_t* previousBlockHash = new uint8_t[32];
+	CharArray read256bitHash() {
+		CharArray previousBlockHash (new uint8_t[32], std::default_delete<uint8_t[]>());
 		for (int a = 0; a < SHA256_LENGTH; a++) {
-			previousBlockHash[a] = blockFile[a + currentIndex];
+			previousBlockHash.get()[a] = blockFile[a + currentIndex];
 		}
 		currentIndex += 32;
 		return previousBlockHash;
 	}
 
-	uint8_t* readScript(uint64_t scriptLength) {
-		uint8_t* valueToReturn = new uint8_t[scriptLength];
+	CharArray readScript(uint64_t scriptLength) {
+		CharArray valueToReturn (new uint8_t[scriptLength], std::default_delete<uint8_t[]>());
 		for (int a = 0; a < scriptLength; a++) {
-			valueToReturn[a] = blockFile[a + currentIndex];
+			valueToReturn.get()[a] = blockFile[a + currentIndex];
 		}
 		currentIndex += scriptLength;
 		return valueToReturn;

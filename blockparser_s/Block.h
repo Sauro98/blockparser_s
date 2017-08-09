@@ -21,12 +21,12 @@ namespace BBlockChain {
 		void printOutput(std::ofstream* myFile) {
 			(*myFile) << "|\t|\t| OutputValue: " << std::dec << value << std::endl;
 			if (scriptLength == 67 || scriptLength == 66) {
-				(*myFile) << "|\t|\t| Dest address: ";
-				for (int a = 65; a > 45; a--)
+				(*myFile) << "|\t|\t| Dest address(65): ";
+				for (int a = 65; a > ((scriptLength == 67)?1:0); a--)
 					(*myFile) << std::hex << (uint16_t)script.get()[a];
 				(*myFile) << std::endl;
 			} else if (scriptLength  >= 25) {
-				(*myFile) << "|\t|\t| Dest address: ";
+				(*myFile) << "|\t|\t| Dest address(25): ";
 				bool isOk = true;
 				for (int a = 0; a < 3; a++) {
 					if (script.get()[a] != publicAddressPattern[a])
@@ -123,7 +123,7 @@ namespace BBlockChain {
 	}Block;
 
 	static void printHash(std::shared_ptr<uint8_t> hash,std::ofstream* myFile) {
-		for (int a = 20; a >= 0; a--) {
+		for (int a = 31; a >= 0; a--) {
 			(*myFile) << std::hex << (uint16_t)(hash.get()[a]);
 		}
 		(*myFile) << std::endl;
